@@ -12,8 +12,9 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'HomePage',
-      builder: (BuildContext context, GoRouterState state) => const HomePage(),
+      name: 'SplashScreen',
+      builder:
+          (BuildContext context, GoRouterState state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/user',
@@ -38,6 +39,11 @@ final GoRouter appRouter = GoRouter(
       builder:
           (BuildContext context, GoRouterState state) =>
               const ProfileDetailsScreen(),
+    ),
+    GoRoute(
+      path: '/Home_Page',
+      name: 'HomePage',
+      builder: (BuildContext context, GoRouterState state) => const HomePage(),
     ),
   ],
 );

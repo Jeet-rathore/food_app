@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/Them/colour.dart';
 import 'package:food_app/widgets/profile_detail.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
   const ProfileDetailsScreen({Key? key}) : super(key: key);
@@ -200,7 +201,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Submit logic
+                    context.go('/Home_Page');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.amber,
