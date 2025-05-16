@@ -17,36 +17,29 @@ class SingleHeaderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context); // Initialize screen config
-
     return Column(
       children: [
-        SizedBox(height: SizeConfig.getProportionalHeight(context, 40)),
-
+        const SizedBox(height: 40),
         Center(
           child: Image.asset(
             Assets.lob2met,
-            height: SizeConfig.getProportionalHeight(context, 200),
-            width: SizeConfig.getProportionalWidth(context, 200),
+            height: 200,
+            width: 200,
             fit: BoxFit.cover,
           ),
         ),
-
-        SizedBox(height: Spacing.space(5)),
-
-        // Toggle Button
+        const SizedBox(height: 20),
         Center(
           child: SizedBox(
-            width: SizeConfig.getProportionalWidth(context, 250),
-            height: SizeConfig.getProportionalHeight(context, 45),
+            width: 250,
+            height: 45,
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.lightGrey,
-                borderRadius: Corners.borderFull,
+                borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
                 children: [
-                  // Login Toggle
                   Expanded(
                     child: GestureDetector(
                       onTap: () => onToggle(true),
@@ -56,7 +49,10 @@ class SingleHeaderScreen extends StatelessWidget {
                               isSignIn
                                   ? AppColors.darkYellow
                                   : Colors.transparent,
-                          borderRadius: Corners.left(Corners.sm),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            bottomLeft: Radius.circular(30),
+                          ),
                         ),
                         alignment: Alignment.center,
                         child: Text(
@@ -69,8 +65,6 @@ class SingleHeaderScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  // Guest Toggle
                   Expanded(
                     child: GestureDetector(
                       onTap: () => onToggle(false),
@@ -80,7 +74,10 @@ class SingleHeaderScreen extends StatelessWidget {
                               !isSignIn
                                   ? AppColors.darkYellow
                                   : Colors.transparent,
-                          borderRadius: Corners.right(Corners.sm),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
                         ),
                         alignment: Alignment.center,
                         child: Text(
@@ -99,15 +96,13 @@ class SingleHeaderScreen extends StatelessWidget {
             ),
           ),
         ),
-
-        SizedBox(height: Spacing.space(5)),
-
+        const SizedBox(height: 20),
         if (isSignIn) ...[
           const Text(
             "Hello!",
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: Spacing.space(1)),
+          const SizedBox(height: 10),
           const Text(
             "Login to Your Account",
             style: TextStyle(
@@ -116,7 +111,6 @@ class SingleHeaderScreen extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
-          SizedBox(height: Spacing.space(4)),
         ],
       ],
     );

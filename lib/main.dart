@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/Router/router.dart';
+import 'package:food_app/appconfig/router.dart';
 import 'package:food_app/View/Buyer_screens/auth_screens/otp_screen.dart';
 import 'package:food_app/View/Buyer_screens/auth_screens/profile_detail.dart';
 import 'package:get/get.dart';

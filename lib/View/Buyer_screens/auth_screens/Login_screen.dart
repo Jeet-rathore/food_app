@@ -16,10 +16,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-
   bool isSignIn = true;
   bool agreedToTerms = false;
-
   final TextEditingController phoneController = TextEditingController();
 
   void toggleMode(bool val) {
@@ -54,7 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               SingleHeaderScreen(isSignIn: isSignIn, onToggle: toggleMode),
-
               if (isSignIn) ...[
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
@@ -64,9 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
-
                 const SizedBox(height: 25),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: IntlPhoneField(
@@ -99,9 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-
                 const SizedBox(height: 60),
-
                 Center(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -111,13 +104,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.go('/otp');
                       },
                       height: 48,
-                      gradientColors: [AppColors.darkYellow], // single color
+                      gradientColors: [AppColors.darkYellow],
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -148,7 +139,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-
                 TextButton(
                   onPressed: () {},
                   child: const Text(
@@ -161,16 +151,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ] else ...[
                 const SizedBox(height: 20),
-
-                const Icon(Icons.person, size: 60, color: Colors.grey),
-                const SizedBox(height: 10),
-                const Text(
-                  "Guest",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(Assets.lob2met, height: 160, fit: BoxFit.cover),
+                    const Icon(Icons.person, size: 60, color: Colors.white),
+                  ],
                 ),
-
-                const SizedBox(height: 30),
-
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -191,39 +179,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 40),
-
                 Center(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: CommonButton(
                       text: "Continue as Guest",
                       onPressed: () {
-                        // Guest button tapped: navigate to guest screen here
-                        // For example:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => GuestScreen(),
-                          ),
-                        );
+                        // Navigate as guest
                       },
                       height: 48,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 15),
-
                 const Text(
                   "Sign up with Guest",
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
-
               const SizedBox(height: 20),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -235,9 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(width: 100, height: 1, color: Colors.grey.shade300),
                 ],
               ),
-
               const SizedBox(height: 20),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -248,23 +221,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   Image.asset(Assets.instagram, height: 32),
                 ],
               ),
-
               const SizedBox(height: 30),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-// Dummy GuestScreen for navigation example
-class GuestScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Guest Screen")),
-      body: const Center(child: Text("Welcome Guest!")),
     );
   }
 }

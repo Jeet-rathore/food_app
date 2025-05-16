@@ -9,7 +9,9 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class Otpscreen extends StatefulWidget {
-  const Otpscreen({super.key});
+  final bool isGuest;
+
+  const Otpscreen({super.key, this.isGuest = false});
 
   @override
   State<Otpscreen> createState() => _OtpscreenState();
@@ -22,6 +24,34 @@ class _OtpscreenState extends State<Otpscreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
+    // ✅ GUEST MODE
+    if (widget.isGuest) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.person_outline, size: 80, color: Colors.orange),
+              const SizedBox(height: 20),
+              const Text(
+                "Guest Mode Activated",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  context.go('/profile-details');
+                },
+                child: const Text("Continue as Guest"),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // ✅ LOGIN MODE
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -29,7 +59,6 @@ class _OtpscreenState extends State<Otpscreen> {
           child: Column(
             children: [
               SizedBox(height: Spacing.space(10)),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Spacing.space(10)),
                 child: SingleHeaderScreen(
@@ -41,9 +70,7 @@ class _OtpscreenState extends State<Otpscreen> {
                   },
                 ),
               ),
-
               SizedBox(height: Spacing.space(5)),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Spacing.space(8)),
                 child: Text(
@@ -52,9 +79,7 @@ class _OtpscreenState extends State<Otpscreen> {
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
               ),
-
               SizedBox(height: Spacing.space(5)),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Spacing.space(8)),
                 child: Column(
@@ -81,9 +106,7 @@ class _OtpscreenState extends State<Otpscreen> {
                     SizedBox(height: Spacing.space(2)),
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 100.0,
-                        ), // yahan aap padding adjust kar sakte hain
+                        padding: const EdgeInsets.only(left: 100.0),
                         child: Text(
                           "Auto Verification enabled in 0.30 sec",
                           style: TextStyle(
@@ -97,13 +120,10 @@ class _OtpscreenState extends State<Otpscreen> {
                   ],
                 ),
               ),
-
               SizedBox(height: Spacing.space(10)),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Spacing.space(8)),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: OutlinedButton(
@@ -151,7 +171,6 @@ class _OtpscreenState extends State<Otpscreen> {
                   ],
                 ),
               ),
-
               SizedBox(height: Spacing.space(10)),
             ],
           ),
