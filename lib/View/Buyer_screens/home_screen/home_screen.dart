@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/appconfig/assets.dart';
+
+import 'package:food_app/widgets/homw_widgtes.dart'; // Import the widget class we created
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,110 +17,160 @@ class HomePage extends StatelessWidget {
             children: [
               _buildHeader(),
               _buildWelcomeMessage(),
-              _buildPromoBanner(),
-              _buildSectionTitle('Products'),
+              buildPromoBanner(),
+
+              // Search Bar
+
+              // Categories section
+
+              // Product Categories (as in original code)
+              CategoryWidgets.sectionTitle('Products'),
               _buildProductCategories(),
-              _buildSectionTitle('Best Sellers'),
+
+              // Best Sellers (as in original code)
+              CategoryWidgets.sectionTitle('Best Sellers'),
               _buildBestSellers(),
-              _buildSectionTitle('Shop by Categories'),
-              _buildCategoryGrid(),
-              const SizedBox(height: 80), // Space for bottom navigation
+              CategoryWidgets.sectionTitle('Shop by Categories'),
+              CategoryWidgets.buildCategoryGrid(context),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       color: Colors.white,
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              width: 40,
-              height: 40,
-              color: Colors.red[900],
-              child: const Center(
-                child: Text(
-                  "L2M",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+          // Top part with company name
+          const Text(
+            'Lab2Meat',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          const SizedBox(height: 10),
+          // Bottom part with profile, time, location, and icons
+          Row(
             children: [
-              const Text(
-                'Lab2Meat',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.access_time, size: 14, color: Colors.grey),
-                  const SizedBox(width: 4),
-                  Text(
-                    '15 minutes',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                  ),
-                  const SizedBox(width: 8),
-                  const Icon(Icons.star, size: 14, color: Colors.amber),
-                  const SizedBox(width: 4),
-                  Text(
-                    '5',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.search, color: Colors.grey),
-          ),
-          const SizedBox(width: 12),
-          Stack(
-            children: [
+              // Profile image
               Container(
-                padding: const EdgeInsets.all(8),
+                width: 60,
+                height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
                   shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.shopping_cart, color: Colors.grey),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.amber,
-                    shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(Assets.Applogo),
+                    fit: BoxFit.cover,
                   ),
-                  child: const Text(
-                    '3',
+                ),
+              ),
+              const SizedBox(width: 12),
+              // Time and location info in column
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '15 minutes',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 12,
+                          color: Colors.grey[600],
+                        ),
+                        const SizedBox(width: 2),
+                        Expanded(
+                          child: Text(
+                            'Elliot Street, Currency Nagar\n jaipur rajasthan, ',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey[600],
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Help icon
+              Container(
+                width: 36,
+                height: 36,
+                margin: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey[200],
+                ),
+                child: Center(
+                  child: Text(
+                    '?',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Colors.grey[600],
                     ),
                   ),
                 ),
+              ),
+              // Notification icon with badge
+              Stack(
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey[200],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'CI',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                        color: Colors.amber,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          '3',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -134,55 +187,48 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Text(
-                'Hello Prasanth!',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.grey[300],
-                child: Icon(Icons.person, color: Colors.grey[600], size: 20),
-              ),
-            ],
+          const Text(
+            'Hello Prasanth!',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(
-            'Fresh meat delivered to your doorstep',
-            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            '"Fresh meat, delivered to your doorstep\n - hassle-free!"',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey[600],
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPromoBanner() {
+  Widget buildPromoBanner() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: double.infinity,
-      height: 140, // Increased height to avoid overflow
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.red[900],
       ),
       child: Stack(
         children: [
+          // ✅ Right-side image (phone + scooter + box)
           Positioned(
-            right: 0,
+            right: -10,
             bottom: 0,
-            child: Container(
-              width: 120,
-              height: 120,
-              color: Colors.transparent,
-              child: Icon(
-                Icons.restaurant_menu,
-                size: 60,
-                color: Colors.white54,
-              ),
+            top: 0,
+            child: Image.asset(
+              "assets/icons/image 3.png", // make sure your image name is correct
+              fit: BoxFit.contain,
+              height: 140,
             ),
           ),
+
+          // ✅ Text and Button on the left side
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -190,11 +236,20 @@ class HomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
-                  'Premium quality meat,\nsourced fresh & delivered\nfast!',
+                  "Holi Festive Week Offers more",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  '"Premium quality meat,\nsourced fresh & delivered\nfast!"',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -202,19 +257,19 @@ class HomePage extends StatelessWidget {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.amber,
-                    foregroundColor: Colors.white,
+                    foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
+                      horizontal: 20,
+                      vertical: 8,
                     ),
-                    minimumSize: const Size(0, 30),
+                    minimumSize: const Size(100, 34),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   child: const Text(
                     'Order Now',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ),
               ],
@@ -225,27 +280,28 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      color: Colors.white,
-      width: double.infinity,
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
   Widget _buildProductCategories() {
+    // Using the original category implementation
     final List<Map<String, dynamic>> categories = [
-      {'name': 'Chicken', 'icon': Icons.agriculture, 'color': Colors.grey[200]},
-      {'name': 'Fish', 'icon': Icons.set_meal, 'color': Colors.grey[200]},
-      {'name': 'Mutton', 'icon': Icons.dining, 'color': Colors.grey[200]},
+      {
+        'name': 'Chicken \n All verites',
+        'imagePath': 'assets/icons/5.png',
+        'color': Colors.white,
+      },
+      {
+        'name': 'Fish',
+        'imagePath': 'assets/icons/7.png',
+        'color': Colors.white,
+      },
+      {
+        'name': 'Mutton',
+        'imagePath': 'assets/icons/6.png',
+        'color': Colors.white,
+      },
       {
         'name': 'Marinated',
-        'icon': Icons.lunch_dining,
-        'color': Colors.grey[200],
+        'imagePath': 'assets/icons/2.png',
+        'color': Colors.white,
       },
     ];
 
@@ -253,7 +309,7 @@ class HomePage extends StatelessWidget {
       color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: SizedBox(
-        height: 105, // Slightly increased height
+        height: 120,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -263,24 +319,27 @@ class HomePage extends StatelessWidget {
               width: 80,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Use minimum space needed
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
+                  ClipOval(
+                    child: Container(
+                      width: 60,
+                      height: 60,
                       color: categories[index]['color'],
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Icon(
-                        categories[index]['icon'],
-                        size: 30,
-                        color: Colors.red[800],
+                      child: Image.asset(
+                        categories[index]['imagePath'],
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.image_not_supported,
+                            size: 30,
+                            color: Colors.red[800],
+                          );
+                        },
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5), // Reduced spacing
+                  const SizedBox(height: 8),
                   Flexible(
                     child: Text(
                       categories[index]['name'],
@@ -289,7 +348,7 @@ class HomePage extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
-                      maxLines: 1, // Limit to one line
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -303,11 +362,28 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildBestSellers() {
+    // Using the original implementation
     final List<Map<String, dynamic>> bestSellers = [
-      {'name': 'Chicken Pieces', 'color': Colors.grey[200]},
-      {'name': 'Chicken Leg', 'color': Colors.grey[200]},
-      {'name': 'Tikkas', 'color': Colors.grey[200]},
-      {'name': 'Fish', 'color': Colors.grey[200]},
+      {
+        'name': 'Chicken Pieces',
+        'imagePath': 'assets/icons/4.png',
+        'color': Colors.white,
+      },
+      {
+        'name': 'Chicken Leg',
+        'imagePath': 'assets/icons/3.png',
+        'color': Colors.white,
+      },
+      {
+        'name': 'Tikkas',
+        'imagePath': 'assets/icons/2.png',
+        'color': Colors.white,
+      },
+      {
+        'name': 'Fish',
+        'imagePath': 'assets/icons/8.png',
+        'color': Colors.white,
+      },
     ];
 
     return Container(
@@ -325,17 +401,22 @@ class HomePage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
+                  ClipOval(
+                    child: Container(
+                      width: 80,
+                      height: 80,
                       color: bestSellers[index]['color'],
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.food_bank,
-                      size: 40,
-                      color: Colors.red[800],
+                      child: Image.asset(
+                        bestSellers[index]['imagePath'],
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.image_not_supported,
+                            size: 40,
+                            color: Colors.red[800],
+                          );
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -353,140 +434,6 @@ class HomePage extends StatelessWidget {
               ),
             );
           },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryGrid() {
-    final List<Map<String, dynamic>> categories = [
-      {'name': 'Chicken', 'color': Colors.grey[200]},
-      {'name': 'Mutton', 'color': Colors.grey[200]},
-      {'name': 'Fish', 'color': Colors.grey[200]},
-      {'name': 'Eggs', 'color': Colors.grey[200]},
-      {'name': 'Marinated', 'color': Colors.grey[200]},
-      {'name': 'Ready to Cook', 'color': Colors.grey[200]},
-      {'name': 'Prawns', 'color': Colors.grey[200]},
-      {'name': 'Cold Cuts', 'color': Colors.grey[200]},
-    ];
-
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.all(12),
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          childAspectRatio: 0.8,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  color: categories[index]['color'],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(Icons.category, size: 30, color: Colors.red[800]),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                categories[index]['name'],
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return Container(
-      height: 70,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, -3),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(Icons.home, 'Home', true),
-          _buildNavItem(Icons.search, 'Search', false),
-          _buildSpecialNavItem(),
-          _buildNavItem(Icons.favorite_border, 'Wishlist', false),
-          _buildNavItem(Icons.person_outline, 'Profile', false),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, color: isSelected ? Colors.amber : Colors.grey, size: 24),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.amber : Colors.grey,
-            fontSize: 12,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSpecialNavItem() {
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 1,
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child: Center(
-        child: Container(
-          width: 46,
-          height: 46,
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(
-            Icons.qr_code_scanner,
-            color: Colors.white,
-            size: 24,
-          ),
         ),
       ),
     );

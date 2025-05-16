@@ -14,19 +14,36 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool _isLayoutReady = false;
+
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      // Yahan pe go_router ki context.go() use karo
-      context.go('/user'); // '/user' route aapke router me defined hona chahiye
+    // Ensure SizeConfig runs after layout is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SizeConfig.init(context);
+      setState(() {
+        _isLayoutReady = true;
+      });
+
+      // Navigate after 3 seconds
+      Future.delayed(const Duration(seconds: 3), () {
+        context.go('/user');
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
+    if (!_isLayoutReady) {
+      // Prevent UI rendering until layout is ready
+      return const Scaffold(
+        backgroundColor: AppColors.black,
+        body: Center(child: CircularProgressIndicator(color: AppColors.white)),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
