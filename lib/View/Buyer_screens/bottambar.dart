@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:food_app/View/Buyer_screens/home_screen/home_screen.dart';
+import 'package:food_app/View/product-detail/producat-card.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   // Add your screens here
   final List<Widget> _screens = [
     HomePage(),
-    const Center(child: Text('Scan')),
+    ChickenStorePage(),
     const Center(child: Text('Scan')),
     const Center(child: Text('Search')),
     const Center(child: Text('Profile')),

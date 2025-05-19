@@ -52,7 +52,7 @@ class ProductListView extends StatelessWidget {
       price: 260.00,
       mrp: null,
       discountPercentage: null,
-      imageUrl: 'assets/images/1.png',
+      imageUrl: 'assets/images/2.png',
       isDiscounted: false,
       isFavorite: true,
     ),
@@ -79,7 +79,7 @@ class ProductListView extends StatelessWidget {
       price: 340.00,
       mrp: 380.00,
       discountPercentage: 10,
-      imageUrl: 'assets/chicken3.jpg',
+      imageUrl: 'assets/icons/4.png',
       isDiscounted: true,
       isFavorite: false,
     ),
@@ -91,7 +91,7 @@ class ProductListView extends StatelessWidget {
       price: 340.00,
       mrp: 380.00,
       discountPercentage: 10,
-      imageUrl: 'assets/chicken4.jpg',
+      imageUrl: 'assets/images/6.png',
       isDiscounted: true,
       isFavorite: false,
     ),
@@ -118,7 +118,7 @@ class ProductListView extends StatelessWidget {
       price: 380.00,
       mrp: 420.00,
       discountPercentage: 10,
-      imageUrl: 'assets/chicken5.jpg',
+      imageUrl: 'assets/images/4.png',
       isDiscounted: true,
       isFavorite: false,
     ),
@@ -130,7 +130,7 @@ class ProductListView extends StatelessWidget {
       price: 420.00,
       mrp: 470.00,
       discountPercentage: 10,
-      imageUrl: 'assets/chicken1.jpg',
+      imageUrl: 'assets/images/7.png',
       isDiscounted: true,
       isFavorite: false,
     ),
@@ -142,7 +142,7 @@ class ProductListView extends StatelessWidget {
       price: 340.00,
       mrp: 380.00,
       discountPercentage: 10,
-      imageUrl: 'assets/chicken2.jpg',
+      imageUrl: 'assets/images/2.png',
       isDiscounted: true,
       isFavorite: false,
     ),
@@ -164,7 +164,7 @@ class ProductListView extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 8),
                     decoration: BoxDecoration(
-                      color: Colors.blue.shade700,
+                      color: Colors.black,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     padding: const EdgeInsets.symmetric(
@@ -250,12 +250,15 @@ class ProductListView extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Biryani Chicken Section
-          _buildCategorySection('Biryani Chicken', biryaniChickenProducts),
+          _buildCategorySection(
+            ' Skinless Biryani cut',
+            biryaniChickenProducts,
+          ),
 
           const SizedBox(height: 20),
 
           // Fresh Chicken Section
-          _buildCategorySection('Fresh Chicken', freshChickenProducts),
+          _buildCategorySection('Chicken joinst', freshChickenProducts),
 
           const SizedBox(height: 30),
         ],
@@ -275,7 +278,7 @@ class ProductListView extends StatelessWidget {
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Colors.black,
             ),
           ),
         ),
@@ -549,22 +552,22 @@ class CategoryStackView extends StatelessWidget {
   final List<CategoryItem> categories = [
     CategoryItem(
       name: 'Chicken All varieties',
-      imageUrl: 'assets/chicken_category.png',
+      imageUrl: 'assets/icons/5.png',
       isSelected: true,
     ),
     CategoryItem(
       name: 'Fish All Varieties',
-      imageUrl: 'assets/fish_category.png',
+      imageUrl: 'assets/icons/7.png',
       isSelected: false,
     ),
     CategoryItem(
       name: 'Mutton All Varieties',
-      imageUrl: 'assets/mutton_category.png',
+      imageUrl: 'assets/icons/6.png',
       isSelected: false,
     ),
     CategoryItem(
       name: 'All Varieties of red food',
-      imageUrl: 'assets/red_food_category.png',
+      imageUrl: 'assets/icons/2.png',
       isSelected: false,
     ),
     CategoryItem(
@@ -615,21 +618,15 @@ class CategoryCard extends StatelessWidget {
           // Category container - Fixed the background color issue
           Container(
             width: 60,
-            height: 60,
+            height: 90,
             decoration: BoxDecoration(
               // Color is now conditional based on isSelected
-              color: category.isSelected ? Colors.amber : Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border:
-                  category.isSelected
-                      ? Border.all(color: Colors.orange, width: 2)
-                      : Border.all(color: Colors.grey.shade300, width: 1),
             ),
             child: Center(
               child: Image.asset(
                 category.imageUrl,
-                width: 40,
-                height: 40,
+                width: 60,
+                height: 60,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(Icons.image, color: Colors.grey, size: 30);
