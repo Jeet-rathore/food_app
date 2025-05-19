@@ -143,7 +143,7 @@ class _OtpscreenState extends State<Otpscreen> {
                         ),
                         child: const Text(
                           "Resend OTP",
-                          style: TextStyle(color: Colors.orangeAccent),
+                          style: TextStyle(color: Color.fromARGB(255, 172, 158, 140)),
                         ),
                       ),
                     ),

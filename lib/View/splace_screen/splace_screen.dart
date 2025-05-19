@@ -14,35 +14,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _isLayoutReady = false;
-
   @override
   void initState() {
     super.initState();
 
-    // Ensure SizeConfig runs after layout is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      SizeConfig.init(context);
-      setState(() {
-        _isLayoutReady = true;
-      });
-
-      // Navigate after 3 seconds
-      Future.delayed(const Duration(seconds: 3), () {
+    // Navigate after 3 seconds
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
         context.go('/user');
-      });
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_isLayoutReady) {
-      // Prevent UI rendering until layout is ready
-      return const Scaffold(
-        backgroundColor: AppColors.black,
-        body: Center(child: CircularProgressIndicator(color: AppColors.white)),
-      );
-    }
+    // Initialize SizeConfig in build method instead of post-frame callback
+    SizeConfig.init(context);
 
     return Scaffold(
       backgroundColor: AppColors.black,
@@ -50,17 +37,27 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           children: [
             SizedBox(height: Spacing.space(10)),
+            // App Logo
             Center(
               child: Container(
                 width: SizeConfig.getProportionalWidth(context, 100),
                 height: SizeConfig.getProportionalHeight(context, 100),
                 decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: ClipOval(
-                  child: Image.asset(Assets.Applogo, fit: BoxFit.cover),
+                child: Image.asset(
+                  Assets.Applogo,
+                  fit: BoxFit.cover,
+                  // Adding errorBuilder to handle image loading failures
+                  errorBuilder: (context, error, stackTrace) {
+                    return const CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      child: Icon(Icons.restaurant, color: Colors.white),
+                    );
+                  },
                 ),
               ),
             ),
             const Spacer(),
+            // App tagline
             Padding(
               padding: Spacing.px(5),
               child: const Text(
@@ -74,27 +71,46 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             SizedBox(height: Spacing.space(5)),
-            Stack(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: SizeConfig.getProportionalHeight(context, 400),
-                  child: Image.asset(
+            // Bottom images stack with fixed height
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.4,
+              ),
+              child: Stack(
+                children: [
+                  Image.asset(
                     Assets.Building,
                     fit: BoxFit.cover,
-                    alignment: Alignment.bottomCenter,
+                    width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey.shade800,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: const Center(
+                          child: Icon(
+                            Icons.image_not_supported,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-                Positioned(
-                  bottom: Spacing.space(4),
-                  left: Spacing.space(2),
-                  child: SizedBox(
-                    width: SizeConfig.getProportionalWidth(context, 130),
-                    height: SizeConfig.getProportionalHeight(context, 360),
-                    child: Image.asset(Assets.cartoonman, fit: BoxFit.cover),
+                  Positioned(
+                    bottom: Spacing.space(4),
+                    left: Spacing.space(2),
+                    child: Image.asset(
+                      Assets.cartoonman,
+                      fit: BoxFit.cover,
+                      width: SizeConfig.getProportionalWidth(context, 130),
+                      errorBuilder: (context, error, stackTrace) {
+                        return SizedBox(
+                          width: SizeConfig.getProportionalWidth(context, 130),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

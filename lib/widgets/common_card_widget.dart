@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/Them/colour.dart';
-import 'package:food_app/Them/sizeconfig.dart';
-import 'package:food_app/appconfig/assets.dart';
-import 'package:food_app/widgets/appbutton.dart';
-
 import 'package:food_app/Them/spacing.dart';
 
 class CommonCardWidget extends StatelessWidget {
@@ -22,48 +17,91 @@ class CommonCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context); // ensure initialization
+    // Get screen dimensions for responsive design
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Center(
-      child: Column(
-        children: [
-          Stack(
-            alignment: Alignment.center,
+    // Calculate card height based on screen size
+    final cardHeight = screenHeight * 0.22;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: cardHeight,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Row(
             children: [
-              ClipOval(
-                child: Container(
-                  width: SizeConfig.getProportionalWidth(context, 180),
-                  height: SizeConfig.getProportionalHeight(context, 180),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(Assets.Ellips),
-                      fit: BoxFit.cover,
-                    ),
+              // Left section - image
+              Expanded(
+                flex: 3,
+                child: AspectRatio(
+                  aspectRatio: 1, // Keep image square
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey.shade200,
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, size: 40),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
-              SizedBox(
-                width: SizeConfig.getProportionalWidth(context, 160),
-                height: SizeConfig.getProportionalHeight(context, 160),
-                child: Image.asset(imagePath, fit: BoxFit.contain),
+
+              // Right section - text
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: Spacing.p(2),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: labelTop,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' $labelBottom',
+                              style: TextStyle(
+                                color: Colors.blue.shade700,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
-          SizedBox(height: Spacing.space(3)), // 12px spacing
-          CommonButton(
-            text: "$labelTop\n$labelBottom",
-            onPressed: onTap,
-            width: SizeConfig.getProportionalWidth(context, 160),
-            height: null,
-            textStyle: const TextStyle(
-              color: AppColors.black,
-              fontWeight: FontWeight.w800,
-              fontSize: 17,
-              height: 1.3,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
